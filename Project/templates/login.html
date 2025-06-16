@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block content %}
+
+<div class="box">
+  <div class="form-container">
+    <div class="form-header">
+      <i class="fas fa-user-circle form-icon"></i>
+      <h1 class="text-center">Welcome Back</h1>
+    </div>
+    <form action="/login" method="post">
+      {{form.hidden_tag()}} 
+      {% for field in form if field.widget.input_type != 'hidden' %}
+      <p class="form-field">
+        {% if field.name == 'email' %}
+        <label for="{{ field.id }}"><i class="fas fa-envelope"></i> {{field.label.text}}</label>
+        {% elif field.name == 'password' %}
+        <label for="{{ field.id }}"><i class="fas fa-lock"></i> {{field.label.text}}</label>
+        {% else %}
+        {{field.label}} 
+        {% endif %}
+        <div>{{field}}</div>
+        {% for err in field.errors %} 
+          <span class="field-error">{{err}}</span> 
+        {% endfor %}
+      </p>
+      {% endfor %}
+      <button type="submit" id="btn-long"><i class="fas fa-sign-in-alt"></i> Login</button>
+    </form>
+    <div class="decorative-line">
+      <span>❁</span><span>✽</span><span>❁</span>
+    </div>
+    <p class="text-center register-link">
+      Don't have an account? <a href="/register" class="link">Register here</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-nav">
+          <h1>
+            <a href="{{url_for('index')}}" class="navbar-brand"
+              ><i class="fas fa-car-side"></i> CAR-LOOKUP</a
+            >
+          </h1>
+        </div>
+        <div class="navbar-nav">
+          {% if 'user_id' in session %}
+          <a
+            href="{{ url_for('user_profile', user_id=session['user_id'])}}"
+            class="nav-link"
+            ><i class="fas fa-user"></i> {{ session.get('user_name')}}</a
+          ><span class="nav-link">|</span>
+
+          <a href="{{url_for('logout')}}" class="nav-link"
+            ><i class="fas fa-sign-out-alt"></i> Logout</a
+          >
+          {% else %}
+          <a href="/login" class="nav-link"
+            ><i class="fas fa-sign-in-alt"></i> Login</a
+          >
+          <span class="nav-link">|</span>
+          <a href="/register" class="nav-link"
+            ><i class="fas fa-user-plus"></i> Register</a
+          >
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+    <div class="main">
+      <div class="message">
+        {% for category, msg in get_flashed_messages(with_categories=True) %} {%
+        if category == 'danger'%}
+        <span class="text-danger"
+          ><i class="fas fa-exclamation-circle"></i> {{ msg }}</span
+        >
+        {% else %}
+        <span class="text-success"
+          ><i class="fas fa-check-circle"></i> {{ msg }}</span
+        >
+        {% endif %} {% endfor %}
+      </div>
+
+      {% block content %} {% endblock %}
+    </div>
+    <div class="hexagon-container">
+      <!-- Divide -->
+      {% for i in range(200) %}
+      <!-- Divide -->
+      <div class="hexagon"></div>
+      <!-- Divide -->
+      {% endfor %}
+      <!-- Divide -->
+    </div>
+  </body>
+</html>

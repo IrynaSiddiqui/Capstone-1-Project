@@ -1,0 +1,28 @@
+{% extends 'base.html' %}{% block title %}Car Lookup {% endblock %} {% block
+content %}
+<div class="box">
+  <div class="vin">
+    <h1><i class="fas fa-car"></i> Enter VIN to Get Car Information</h1>
+    <p class="tagline">
+      Explore your vehicle's unique details with a simple search
+    </p>
+    <div class="search-container">
+      <form action="{{ url_for('get_car_info') }}" method="post">
+        <div class="input-group">
+          <input
+            type="text"
+            id="vin"
+            name="vin"
+            required
+            placeholder="Enter VIN number..."
+          />
+          <button type="submit"><i class="fas fa-search"></i> Get Info</button>
+        </div>
+      </form>
+    </div>
+    <div class="decorative-line">
+      <span>❁</span><span>✽</span><span>❁</span>
+    </div>
+  </div>
+</div>
+{% endblock %}
